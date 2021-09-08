@@ -18,7 +18,6 @@ export class UserService {
 
   async showById(id: number): Promise<User> {
     const user = await this.userRepo.findOne(id);
-
     delete user.password;
     return user;
   }
@@ -29,5 +28,12 @@ export class UserService {
         email: email,
       },
     });
+  }
+
+  async updateTokens(user, data) {
+    Object.keys(data).forEach((key) => {
+      user[`${key}`] = data[`${key}`];
+    });
+    return this.userRepo.save(user);
   }
 }

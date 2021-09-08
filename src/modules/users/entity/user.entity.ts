@@ -23,6 +23,17 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
+  @Column({ default: false })
+  isActive: boolean;
+
+  @Exclude()
+  @Column({ nullable: true })
+  registrationToken: string;
+
+  @Exclude()
+  @Column({ nullable: true })
+  resetPasswordToken: string;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
