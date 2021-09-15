@@ -11,6 +11,23 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@filters/*": ["./src/filters/*"],
+      "@guards/*": ["./src/guards/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@shared/*": ["./src/components/shared/*"],
+      "@components/*": ["./src/components/*"],
+      "@pipes/*": ["./src/pipes/*"],
+      "@dto/*": ["./src/dto/*"],
+      "@responses/*": ["./src/responses/*"],
+      "@interceptors/*": ["./src/interceptors/*"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@v1/*": ["src/routes/v1/*"],
+      "@exceptions/*": ["./src/exceptions/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   }
 }

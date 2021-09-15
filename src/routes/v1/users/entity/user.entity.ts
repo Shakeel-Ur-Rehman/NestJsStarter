@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 
 @Entity()
-export class User extends BaseEntity {
+class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,6 +25,9 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   isActive: boolean;
+
+  @Column({ default: null })
+  role: boolean;
 
   @Exclude()
   @Column({ nullable: true })
@@ -51,3 +54,5 @@ export class User extends BaseEntity {
     return bcrypt.compare(password, this.password);
   }
 }
+
+export default User;

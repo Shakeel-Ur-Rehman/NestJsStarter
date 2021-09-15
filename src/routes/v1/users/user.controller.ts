@@ -2,12 +2,12 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { NoAuth } from '../auth/guards/no-auth.guard';
 import { CreateUserDto } from './dto/createUser.dto';
-import { UserService } from './user.service';
+import UserService from './user.service';
 
 @ApiTags('User')
 @ApiBearerAuth()
 @Controller('api/users')
-export class UserController {
+class UserController {
   constructor(private readonly usersService: UserService) {}
 
   @Post()
@@ -21,3 +21,5 @@ export class UserController {
     return this.usersService.showById(+id);
   }
 }
+
+export default UserController;

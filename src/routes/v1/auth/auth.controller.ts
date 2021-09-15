@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { LoginDto } from '../users/dto/login.dto';
-import { AuthService } from './auth.service';
+import AuthService from './auth.service';
 import { NoAuth } from './guards/no-auth.guard';
 
 @ApiBearerAuth()
@@ -27,6 +27,6 @@ export class AuthController {
   @ApiResponse({ status: 200 })
   @Post('/forgotPassword/:email')
   public async create(@Param('email') email: string) {
-    return this.authService.forgotPassword(email);
+    //return this.authService.forgotPassword(email);
   }
 }
