@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { userMailer } from 'src/mailer/mailers/user.mailer';
 import { Repository } from 'typeorm';
@@ -10,6 +11,7 @@ class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -17,9 +19,13 @@ class UserService {
   }
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const user = User.create(createUserDto);
-      user.registrationToken = '';
-      await user.save();
+      const userObject = User.create(createUserDto);
+      const user = await userObject.save();
+      user.registrationToken = await this.jwtService.sign({
+        email: user.email,
+        id: user.id,
+      });
+      await this.userRepo.save(user);
       userMailer.registerRequest(user);
       return user;
     } catch (error: any) {

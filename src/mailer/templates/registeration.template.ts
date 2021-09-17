@@ -9,7 +9,7 @@ export const RegistrationTemplate = (user) => {
   <center>
   <a style="height:30px;width:50px;background-color:blue;color:white;padding:10px 30px" href="${
     process.env.APPLICATION_SERVER_BASE_URL
-  }">Setup Password</a>
+  }/v1/auth/activate-user/${user.registrationToken}">Setup Password</a>
   </center>
   `);
 };
