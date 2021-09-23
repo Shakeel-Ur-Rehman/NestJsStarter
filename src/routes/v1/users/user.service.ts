@@ -14,8 +14,11 @@ class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return this.userRepo.find();
+  async findAll(skip, take): Promise<User[]> {
+    return this.userRepo.find({
+      skip,
+      take,
+    });
   }
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {

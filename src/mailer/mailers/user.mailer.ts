@@ -12,7 +12,6 @@ export class userMailer extends MailerService {
   static forgotPassword(user) {
     const subject = 'Forgot Password';
     const body = forgotPasswordTemplate(user);
-    console.log(body);
     return this.sendEmail(user, subject, body);
   }
 }

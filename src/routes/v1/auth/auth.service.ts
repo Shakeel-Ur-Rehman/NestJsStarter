@@ -16,7 +16,6 @@ export default class AuthService {
 
   async login(@Body() body: LoginDto): Promise<any> {
     const user = await this.usersService.findByEmail(body.email);
-    console.log(user.isActive);
     if (user && user.isActive) {
       await this.verifyPassword(body.password, user.password);
       delete user.password;

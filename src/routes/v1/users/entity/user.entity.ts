@@ -10,6 +10,7 @@ import {
 
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
+import { UserRolesEnum } from '../roles/user.roles';
 
 @Entity()
 class User extends BaseEntity {
@@ -26,8 +27,8 @@ class User extends BaseEntity {
   @Column({ default: false })
   isActive: boolean;
 
-  @Column({ default: null })
-  role: boolean;
+  @Column({ default: UserRolesEnum.USER })
+  role: UserRolesEnum;
 
   @Exclude()
   @Column({ nullable: true })
