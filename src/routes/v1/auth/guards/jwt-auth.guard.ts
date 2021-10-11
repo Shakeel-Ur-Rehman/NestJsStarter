@@ -1,4 +1,8 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -12,5 +16,18 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const noAuth = this.reflector.get<boolean>('no-auth', context.getHandler());
     if (noAuth) return true;
     return super.canActivate(context);
+  }
+
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw (
+        err ||
+        new UnauthorizedException({
+          message: 'username or password is invalid',
+        })
+      );
+    }
+
+    return user;
   }
 }

@@ -10,9 +10,10 @@ import {
 
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
+import { UserRolesEnum } from '../roles/user.roles';
 
 @Entity()
-export class User extends BaseEntity {
+class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,6 +23,20 @@ export class User extends BaseEntity {
   @Exclude()
   @Column()
   password: string;
+
+  @Column({ default: false })
+  isActive: boolean;
+
+  @Column({ default: UserRolesEnum.USER })
+  role: UserRolesEnum;
+
+  @Exclude()
+  @Column({ nullable: true })
+  registrationToken: string;
+
+  @Exclude()
+  @Column({ nullable: true })
+  resetPasswordToken: string;
 
   @Column()
   @CreateDateColumn()
@@ -40,3 +55,5 @@ export class User extends BaseEntity {
     return bcrypt.compare(password, this.password);
   }
 }
+
+export default User;
