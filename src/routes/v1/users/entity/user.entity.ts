@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { UserRolesEnum } from '../roles/user.roles';
+import { Permission } from '@v1/permission/entities/permission.entity';
 
 @Entity()
 class User extends BaseEntity {
@@ -45,6 +47,9 @@ class User extends BaseEntity {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Permission, (permission) => permission.user, { eager: true })
+  permissions: Permission[];
 
   @BeforeInsert()
   async hashPassword() {

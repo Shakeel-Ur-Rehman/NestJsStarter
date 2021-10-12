@@ -6,11 +6,13 @@ import AuthService from './auth.service';
 import UsersModule from '@v1/users/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { PermissionModule } from '@v1/permission/permission.module';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
+    PermissionModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
     }),

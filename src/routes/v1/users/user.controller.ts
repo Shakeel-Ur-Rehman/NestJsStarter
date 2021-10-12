@@ -1,9 +1,6 @@
-import { Roles } from '@decorators/roles.decorator';
-import RolesGuard from '@guards/roles.guard';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/createUser.dto';
-import { UserRolesEnum } from './roles/user.roles';
 import UserService from './user.service';
 
 @ApiBearerAuth()
@@ -22,7 +19,6 @@ class UserController {
     return this.usersService.create(createUserDto);
   }
 
-  @Roles(UserRolesEnum.USER)
   @Get(':id')
   show(@Param('id') id: string) {
     return this.usersService.showById(+id);

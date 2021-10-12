@@ -23,7 +23,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       throw (
         err ||
         new UnauthorizedException({
-          message: 'username or password is invalid',
+          message: 'unauthorized please login to access',
         })
       );
     }

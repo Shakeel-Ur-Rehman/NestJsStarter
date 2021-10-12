@@ -6,12 +6,15 @@ import { LoginDto } from '@v1/users/dto/login.dto';
 import UserService from '@v1/users/user.service';
 import { userMailer } from 'src/mailer/mailers/user.mailer';
 import { resetPasswordDto } from '@v1/users/dto/resetPassword.dto';
+import { PermissionService } from '@v1/permission/permission.service';
+import User from '@v1/users/entity/user.entity';
 
 @Injectable()
 export default class AuthService {
   constructor(
     private readonly usersService: UserService,
     private readonly jwtService: JwtService,
+    private readonly permissionService: PermissionService,
   ) {}
 
   async login(@Body() body: LoginDto): Promise<any> {
@@ -93,5 +96,9 @@ export default class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  async findAllPermissionsOfUser(user: User) {
+    return this.permissionService.findAll();
   }
 }
